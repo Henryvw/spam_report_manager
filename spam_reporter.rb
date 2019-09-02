@@ -2,6 +2,7 @@ require 'haml'
 require 'pry'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'active_record'
 
 class SpamReporter < Sinatra::Application
   configure :development do
@@ -9,6 +10,7 @@ class SpamReporter < Sinatra::Application
   end
 
   get '/spam_dashboard' do
-    haml :spam_dashboard
+    p UserReport.all
+    #haml :spam_dashboard
   end
 end

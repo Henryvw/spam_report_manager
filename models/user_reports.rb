@@ -1,18 +1,17 @@
 # Keeping it simple for this small project: including my database config, my model and my migration all in one file
 
-require 'activerecord'
+require 'active_record'
+require 'pg'
 
 ActiveRecord::Base.establish_connection(
-  adapter: 'postgres'
-  host: 'host'
-  username: 'user'
-  password: 'password'
-  database: 'user-reports'
+  adapter: 'postgresql',
+  host: 'localhost',
+  username: 'user',
+  password: 'password',
+  database: 'spam_databank',
+  port: '6666'
 )
 
-ActiveRecord::Migration.create_table :user_reports do |t|
-  t.string :name
-end
 
 class UserReports < ActiveRecord::Base
 end
