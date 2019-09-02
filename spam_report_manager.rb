@@ -11,7 +11,7 @@ class SpamReportManager < Sinatra::Application
   end
 
   get '/spam_dashboard' do
-    p UserSpamReport.all
-    #haml :spam_dashboard
+    @user_spam_reports = UserSpamReport.all
+    haml :spam_dashboard
   end
 end
