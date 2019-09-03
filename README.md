@@ -1,6 +1,8 @@
 # Spam Report Manager
 An admin dashboard to manage (view, block and resolve - i.e. remove from the dashboard view) messages reported as SPAM by our users.
 
+<img align="center" src="https://github.com/Henryvw/spam_report_manager/public/spam_dashboard_preview.png" alt="Spam Dashboard Preview" width="600" />
+
 ## Run the app locally
 1. `bundle` within the folder to get all needed gems
 2. Create PostGres database user and password, as specified in `spam_database.yml`
