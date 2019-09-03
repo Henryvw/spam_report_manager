@@ -21,4 +21,11 @@ class SpamReportManager < Sinatra::Application
     report.save
     redirect to '/spam_dashboard'
   end
+
+  put '/block/:id' do
+    report = UserSpamReport.find(id = params['id'])
+    report.blocked = true
+    report.save
+    redirect to '/spam_dashboard'
+  end
 end

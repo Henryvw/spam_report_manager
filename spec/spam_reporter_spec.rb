@@ -31,6 +31,12 @@ describe SpamReportManager, type: :feature do
   end
 
   context 'spam team dashboard' do
+    all_test_reports = UserSpamReport.all
+    all_test_reports.each do |report|
+      if report
+        report.destroy
+      end
+    end
     it 'retrieves the dashboard homepage' do
       get '/spam_dashboard' do
         expect(last_response).to be_ok
@@ -56,16 +62,6 @@ describe SpamReportManager, type: :feature do
     end
   end
  
-  context 'Block a message' do
-    it 'can access a button to block a message reported as spam' do
-      get '/spam_dashboard' do
-        expect(last_response.body).to include("<button>Block</button>")
-      end
-    end
-
-    it 'can, after clicking, see that this spam-reported message will now be blocked' do
-    end
-  end
 
   context 'Resolve a ticket' do
     it 'can access a button to resolve a ticket reported as spam' do
@@ -76,8 +72,10 @@ describe SpamReportManager, type: :feature do
 
     it 'when clicked, removes that spam report from our dashboard' do
       Capybara.current_driver = :selenium_chrome
+
       UserSpamReport.find(id=0).destroy
       UserSpamReport.find(id=1).destroy
+
       new_test_report = UserSpamReport.new(id: 2, state: "OPEN", spam_report_id: "333ccc", payload_report_type: "SPAM", payload_message: "Schiller sagt: SPAM!")
       new_test_report.save
 
@@ -98,6 +96,29 @@ describe SpamReportManager, type: :feature do
 
     it 'updates report database to CLOSED' do
       expect(UserSpamReport.find_by_id(2).state).to eq "CLOSED"
+    end
+  end
+
+  context 'Block a message' do
+    it 'can access a button to block a message reported as spam' do
+      new_test_report = UserSpamReport.new(id: 4, state: "OPEN", spam_report_id: "555eee", payload_report_type: "SPAM", payload_message: "Goethe spam")
+      new_test_report.save
+
+      get '/spam_dashboard' do
+        expect(last_response.body).to include("<button name='_method' type='hidden' value='put'>Block</button>")
+      end
+    end
+
+    it 'can, after clicking, see that this spam-reported message will now be blocked' do
+      Capybara.current_driver = :selenium_chrome
+
+      visit('/spam_dashboard')
+
+      expect(page).not_to have_content 'true'
+
+      find('button', text: 'Block').click
+
+      expect(page).to have_content 'true'
     end
   end
 
