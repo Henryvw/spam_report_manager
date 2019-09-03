@@ -2,15 +2,25 @@
 
 %h1 Spam Dashboard
 
-- @user_spam_reports.each do |spam|
+- @open_spam_reports.each do |spam|
   %table
+    %tr
+      %td
+        %form{action: "/reports/#{spam.id}", method: "post"}
+          %button{type: "hidden", name: "_method", value: "put"} Resolve
+        %form{action: "/block/#{spam.id}", method: "post"}
+          %button{type: "hidden", name: "_method", value: "put"} Block
     %tr
       %th ID
       %th Type
       %th Message
       %th State
+      %th Blocked
     %tr
       %td= spam.spam_report_id
       %td= spam.payload_report_type
       %td= spam.payload_message
       %td= spam.state
+      %td= spam.blocked?
+    %br
+    %br

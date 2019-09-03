@@ -4,10 +4,13 @@ default: &default
   host: localhost
   username: manager
   password: password
-  database: spam_databank
   pool: 5
-
 
 development:
   <<: *default
   database: spam_databank
+
+
+test:
+  <<: *default
+  database: test_spam_data
