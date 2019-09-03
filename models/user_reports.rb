@@ -3,17 +3,10 @@
 require 'active_record'
 require 'pg'
 
-ActiveRecord::Base.establish_connection(
-  adapter: 'postgresql',
-  host: 'localhost',
-  username: 'user',
-  password: 'password',
-  database: 'spam_databank',
-  port: '6666'
-)
-
+# Not sure whether I need this database connector... but leaving it in...
+DB_ENV ||= 'development'
+connection_details = YAML::load(File.open('db/spam_database.yml'))
+ActiveRecord::Base.establish_connection(connection_details[DB_ENV])
 
 class UserReports < ActiveRecord::Base
 end
-
-
