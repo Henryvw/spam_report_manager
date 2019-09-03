@@ -1,5 +1,5 @@
 require 'active_record'
-require './spam_reporter.rb'
+require './spam_report_manager.rb'
 
 include ActiveRecord::Tasks
 
