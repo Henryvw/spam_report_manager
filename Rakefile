@@ -4,7 +4,7 @@ require './spam_report_manager.rb'
 include ActiveRecord::Tasks
 
 root = File.expand_path '..', __FILE__
-DatabaseTasks.env = ENV['ENV'] || 'development'
+DatabaseTasks.env = ENV['RACK_ENV'] || 'development'
 DatabaseTasks.database_configuration = YAML.load(File.read(File.join(root, 'db/spam_database.yml')))
 DatabaseTasks.db_dir = File.join root, 'db'
 DatabaseTasks.migrations_paths = [File.join(root, 'db/migrate')]
