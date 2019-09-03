@@ -6,12 +6,19 @@ require 'active_record'
 require_relative 'models/user_spam_report.rb'
 
 class SpamReportManager < Sinatra::Application
-  configure :development do
+  configure :development, :test do
     register Sinatra::Reloader
   end
 
   get '/spam_dashboard' do
-    @user_spam_reports = UserSpamReport.all
+    @open_spam_reports = UserSpamReport.where(state: "OPEN")
     haml :spam_dashboard
+  end
+
+  put '/reports/:id' do
+    report = UserSpamReport.find(id = params['id'])
+    report.state = "CLOSED"
+    report.save
+    redirect to '/spam_dashboard'
   end
 end

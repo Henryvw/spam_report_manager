@@ -9,6 +9,7 @@ require_relative '../spam_report_manager.rb'
 
 Capybara.configure do |c|
   c.app_host = "http://localhost:4567"
+  # Capybara's click_button doesn't work with the Racktest driver. I guess there is some JS in the HTML submit that I don't see? Confused about that actually
   c.default_driver = :rack_test
 end
 
@@ -16,7 +17,6 @@ RSpec.configure do |config|
   config.include Capybara::DSL
 end
 
-# Please Note: Given that this is a mini project and in the interest of time I did NOT create a test database. Naturally, I WOULD do that if this were a real project. I would not be saving and destroying objects and records on the actual database.
 describe SpamReportManager, type: :feature do
 
   include Rack::Test::Methods
@@ -59,7 +59,7 @@ describe SpamReportManager, type: :feature do
   context 'Block a message' do
     it 'can access a button to block a message reported as spam' do
       get '/spam_dashboard' do
-        expect(last_response.body).to include("<button>Resolve</button>")
+        expect(last_response.body).to include("<button name='_method' type='hidden' value='put'>Resolve</button>")
       end
     end
 
@@ -75,19 +75,29 @@ describe SpamReportManager, type: :feature do
     end
 
     it 'when clicked, removes that spam report from our dashboard' do
+      Capybara.current_driver = :selenium_chrome
       UserSpamReport.find(id=0).destroy
       UserSpamReport.find(id=1).destroy
       new_test_report = UserSpamReport.new(id: 2, state: "OPEN", spam_report_id: "333ccc", payload_report_type: "SPAM", payload_message: "Schiller sagt: SPAM!")
       new_test_report.save
+
       visit('/spam_dashboard')
       find('button', text: 'Resolve').click
+
       expect(page).not_to have_content '333ccc'
     end
 
     it 'makes a PUT request to endpoint /reports/:reportID' do
+      Capybara.use_default_driver
+      new_test_report = UserSpamReport.new(id: 3, state: "OPEN", spam_report_id: "444ddd", payload_report_type: "SPAM", payload_message: "Goethe spam")
+
+      page.driver.post("/reports/#{new_test_report.id}")
+
+      expect(page).not_to have_content '444ddd'
     end
 
     it 'updates report database to CLOSED' do
+      expect(UserSpamReport.find_by_id(2).state).to eq "CLOSED"
     end
   end
 
