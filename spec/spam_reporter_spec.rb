@@ -59,7 +59,7 @@ describe SpamReportManager, type: :feature do
   context 'Block a message' do
     it 'can access a button to block a message reported as spam' do
       get '/spam_dashboard' do
-        expect(last_response.body).to include("<button name='_method' type='hidden' value='put'>Resolve</button>")
+        expect(last_response.body).to include("<button>Block</button>")
       end
     end
 
@@ -70,7 +70,7 @@ describe SpamReportManager, type: :feature do
   context 'Resolve a ticket' do
     it 'can access a button to resolve a ticket reported as spam' do
       get '/spam_dashboard' do
-        expect(last_response.body).to include("<button>Block</button>")
+        expect(last_response.body).to include("<button name='_method' type='hidden' value='put'>Resolve</button>")
       end
     end
 
