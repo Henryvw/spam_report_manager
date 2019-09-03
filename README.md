@@ -7,3 +7,6 @@ An admin dashboard to manage (view, block and resolve - i.e. remove from the lis
 2. Create PostGres database user and password, as specified in `spam_database.yml`
 3. `rake db:create` and `rake db:migrate` to set up the database
 4. `rackup -p 4567` to launch the app
+
+## To run the test suite:
+1. RACK_ENV=test rspec spec/spam_reporter_spec.rb
