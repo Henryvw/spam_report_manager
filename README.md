@@ -1,4 +1,5 @@
 # Spam Report Manager
+### A Sinatra + ActiveRecord[6.0] app
 An admin dashboard to manage (view, block and resolve - i.e. remove from the dashboard view) messages reported as SPAM by our users.
 
 <img align="center" src="https://github.com/Henryvw/spam_report_manager/blob/master/public/spam_dashboard_preview.png" alt="Spam Dashboard Preview"/>
