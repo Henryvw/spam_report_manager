@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '2.6.2'
 
 gem 'activerecord'
+gem 'capybara'
 gem 'haml'
 gem 'pg'
 gem 'pry'
