@@ -1,7 +1,13 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  username: manager
+  password: password
+  database: spam_databank
+  pool: 5
+
+
 development:
-  adapter: 'postgresql'
-  host: 'localhost'
-  username: 'user'
-  password: 'password'
-  database: 'spam_databank' 
-  port: '6666'
+  <<: *default
+  database: spam_databank

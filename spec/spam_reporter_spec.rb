@@ -1,13 +1,13 @@
 require 'rspec'
-require_relative '../spam_reporter.rb'
 require 'rack/test'
+require_relative '../spam_report_manager.rb'
 
-describe SpamReporter do
+describe SpamReportManager do
 
   include Rack::Test::Methods
   
   def app
-    SpamReporter.new
+    SpamReportManager.new
   end
 
   context 'spam team dashboard' do
