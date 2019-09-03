@@ -9,4 +9,5 @@ An admin dashboard to manage (view, block and resolve - i.e. remove from the lis
 4. `rackup -p 4567` to launch the app
 
 ## To run the test suite:
-1. RACK_ENV=test rspec spec/spam_reporter_spec.rb
+1. rake db:test:prepare
+2. RACK_ENV=test rspec spec/spam_reporter_spec.rb
