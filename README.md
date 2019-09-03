@@ -6,7 +6,7 @@ An admin dashboard to manage (view, block and resolve - i.e. remove from the das
 ## Run the app locally
 1. `bundle` within the folder to get all needed gems
 2. Create PostGres database user and password, as specified in `spam_database.yml`
-3. Load the database with the example spam reports: `psql -U manager spam_databank < db/new_spam_export.pgsql`
+3. Load the database with the example spam reports: `psql -U manager spam_databank < db/spam_import.pgsql`
 4. `rake db:create` and `rake db:migrate` to set up the database
 5. `rackup -p 4567` to launch the app
 
