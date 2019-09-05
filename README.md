@@ -14,5 +14,5 @@ An admin dashboard to manage (view, block and resolve - i.e. remove from the das
 
 ## Run the RSpec test suite
 1. `rake db:test:prepare`
-2. If you have the development instance running, the `Selenium` browser tests will interact with that instance and its database. Please stop the development instance before running the test suite. 
-2. `RACK_ENV=test rspec spec/spam_reporter_spec.rb`
+2. The Selenium tests that interact with the browser need an instance of the app (running the test database) to run. Launch it with `RACK_ENV=test rackup -p 4568`
+3. `RACK_ENV=test rspec spec/spam_reporter_spec.rb`
