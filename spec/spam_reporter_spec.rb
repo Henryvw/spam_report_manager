@@ -8,7 +8,7 @@ require 'rack/test'
 require_relative '../spam_report_manager.rb'
 
 Capybara.configure do |c|
-  c.app_host = "http://localhost:4567"
+  c.app_host = 'http://localhost:4568'
   # Capybara's click_button doesn't work with the Racktest driver. I guess there is some JS in the HTML submit that I don't see? Confused about that actually
   c.default_driver = :rack_test
 end
